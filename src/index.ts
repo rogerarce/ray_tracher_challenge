@@ -16,8 +16,6 @@ const generate_color = (vector: Vector) => {
 };
 
 const write_color = (output_path: string, color: string) => {
-  console.log(color);
-
   fs.writeFileSync(output_path, color, { flag: "a+" });
 };
 

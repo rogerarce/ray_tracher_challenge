@@ -122,3 +122,86 @@ describe("test negation function", () => {
     expect(result).toEqual(answer);
   });
 });
+
+describe("test vector magnitude or length function", () => {
+  it("should return the length of given vector", () => {
+    const vector = new Vector(1, 0, 0);
+    const result = vector.length;
+    const answer = 1;
+    expect(result).toEqual(answer);
+  });
+
+  it("should return the length of given vector", () => {
+    const vector = new Vector(0, 1, 0);
+    const result = vector.length;
+    const answer = 1;
+    expect(result).toEqual(answer);
+  });
+
+  it("should return the length of given vector", () => {
+    const vector = new Vector(0, 0, 1);
+    const result = vector.length;
+    const answer = 1;
+    expect(result).toEqual(answer);
+  });
+
+  it("should return the length of given vector", () => {
+    const vector = new Vector(1, 2, 3);
+    const result = vector.length;
+    const answer = Math.sqrt(14);
+    expect(result).toEqual(answer);
+  });
+
+  it("should return the length of given vector", () => {
+    const vector = new Vector(-1, -2, -3);
+    const result = vector.length;
+    const answer = Math.sqrt(14);
+    expect(result).toEqual(answer);
+  });
+});
+
+/** @TODO: test unit vector of this vector if = 1; new Vector(10, -2, 14) */
+describe("test vector normalize function", () => {
+  it("should return normalized version of given vector", () => {
+    const vector = new Vector(4, 0, 0);
+    const result = vector.normalize();
+    const answer = new Vector(1, 0, 0);
+    expect(result).toEqual(answer);
+  });
+
+  it("should return normalized version of given vector", () => {
+    const vector = new Vector(1, 2, 3);
+    const result = vector.normalize();
+    const magnitude = Math.sqrt(14);
+    const answer = new Vector(1 / magnitude, 2 / magnitude, 3 / magnitude);
+    expect(answer.length).toEqual(1);
+    expect(result).toEqual(answer);
+  });
+});
+
+describe("test dot product of given vectors", () => {
+  it("should compute for dot product of given vectors (2)", () => {
+    const vector_1 = new Vector(1, 2, 3);
+    const vector_2 = new Vector(2, 3, 4);
+    const result = vector_1.dot(vector_2);
+    expect(result).toEqual(20);
+  });
+});
+
+describe("test vector cross operator", () => {
+  it("should compute for 2 vectors cross product and returns a new vector", () => {
+    const vector_1 = new Vector(1, 2, 3);
+    const vector_2 = new Vector(2, 3, 4);
+    const result = vector_1.cross(vector_2);
+    const answer = new Vector(-1, 2, -1);
+    expect(result).toEqual(answer);
+  });
+
+  it("should compute for 2 vectors cross product and returns a new vector", () => {
+    const vector_1 = new Vector(1, 2, 3);
+    const vector_2 = new Vector(2, 3, 4);
+    const result = vector_2.cross(vector_1);
+    const answer = new Vector(1, -2, 1);
+    expect(result).toEqual(answer);
+  });
+});
