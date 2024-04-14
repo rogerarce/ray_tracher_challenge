@@ -1,0 +1,31 @@
+{
+  "name": "ray_tracing",
+  "version": "1.0.0",
+  "description": "weekend things",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "setup": "rm ./output/* && touch ./output/test.ppm",
+    "exec": "ts-node src/index.ts",
+    "start": "npm run setup && npm run exec"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.7",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "transform": {
+      "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": ["node_modules/(?!variables/.*)"]
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
