@@ -1,5 +1,4 @@
 /** Vector Class */
-
 export class Tuple {
   constructor(
     public x: number,
@@ -9,14 +8,16 @@ export class Tuple {
   ) {}
 
   /** @TODO: validate if Vector always has w = 0 and Point always has w = 1; */
-  public static of(x: number, y: number, z: number, w: number): Tuple {
-    if (w == 0) {
-      return new Vector(x, y, z);
-    } else if (w == 1) {
-      return new Point(x, y, z);
-    } else {
-      return new Tuple(x, y, z, w);
-    }
+  public static of(x: number, y: number, z: number, w: number = 0): Tuple {
+    return new Tuple(x, y, z, w);
+  }
+
+  public get isVector(): boolean {
+    return this.w === 0;
+  }
+
+  public get isPoint(): boolean {
+    return this.w === 1;
   }
 
   public addTuples(v: Tuple): Tuple {
@@ -31,7 +32,7 @@ export class Tuple {
     return Tuple.of(this.x * -1, this.y * -1, this.z * -1, this.w * -1);
   }
 
-  public multiply(v: Vector): Tuple;
+  public multiply(v: Tuple): Tuple;
   public multiply(scalar: number): Tuple;
   public multiply(arg: any): Tuple {
     if (typeof arg === "number") {
@@ -54,40 +55,45 @@ export class Tuple {
       this.w / scalar,
     );
   }
-}
-
-export class Vector extends Tuple {
-  constructor(x: number, y: number, z: number) {
-    super(x, y, z, 0);
-  }
 
   // compute magnitude of vector
   public get length(): number {
+    if (!this.isVector) {
+      throw new Error("Not a Vector");
+    }
+
     return Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2 + this.w ** 2);
   }
 
-  /** Turn non-zero magnitude vector into a unit vector (?). */
-  public normalize(): Tuple {
-    return this.division(this.length);
-  }
+  public dot(v: Tuple): number {
+    if (!this.isVector || !v.isVector) {
+      throw new Error("Not a Vector");
+    }
 
-  public dot(v: Vector): number {
     const product = this.multiply(v);
 
     return product.x + product.y + product.z + product.w;
   }
 
-  public cross(v: Vector): Vector {
-    return new Vector(
+  /** Turn non-zero magnitude vector into a unit vector (?). */
+  public normalize(): Tuple {
+    if (!this.isVector) {
+      throw new Error("Not a Vector");
+    }
+
+    return this.division(this.length);
+  }
+
+  public cross(v: Tuple): Tuple {
+    if (!this.isVector || !v.isVector) {
+      throw new Error("Not a Vector");
+    }
+
+    return Tuple.of(
       this.y * v.z - this.z * v.y,
       this.z * v.x - this.x * v.z,
       this.x * v.y - this.y * v.x,
+      0,
     );
-  }
-}
-
-export class Point extends Tuple {
-  constructor(x: number, y: number, z: number) {
-    super(x, y, z, 1);
   }
 }

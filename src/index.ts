@@ -1,9 +1,9 @@
 /** Entry File */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Vector } from "./tuple";
+import { Tuple } from "./tuple";
 
-const generate_color = (vector: Vector) => {
+const generate_color = (vector: Tuple) => {
   const r = vector.x;
   const g = vector.y;
   const b = vector.z;
@@ -24,9 +24,10 @@ const init = (image_width: number, image_height: number, path: string) => {
 
   for (let j = 0; j < image_height; j++) {
     for (let i = 0; i < image_width; i++) {
-      const vector = new Vector(
+      const vector = new Tuple(
         i / (image_width - 1),
         j / (image_height - 1),
+        0.0,
         0.0,
       );
 
